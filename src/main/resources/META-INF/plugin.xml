@@ -1,0 +1,26 @@
+<idea-plugin>
+    <id>io.maliboot.www.idea-hyperf-plugin</id>
+    <name>Hyperf Support</name>
+    <vendor email="shilei_zhang@163.com" url="https://github.com/maliboot/maliboot">Maliboot</vendor>
+    <description><![CDATA[
+    Support for Hyperf framework / components.<br>
+    <a href="https://github.com/maliboot/idea-hyperf-plugin">GitHub</a> | <a href="https://github.com/maliboot/idea-hyperf-plugin/issues">Issues</a>
+      <br/>
+      <h2>Features:</h2>
+      <ul>
+        <li>Debug: To debug template files instead of proxy files when AOP feature is used</li>
+      </ul>
+      <h2>Todo</h2>
+      <ul>
+        <li>Lombok(Testing...)</li>
+      </ul>
+  ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.jetbrains.php</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <php.debug.templateLanguage implementation="io.maliboot.www.hyperf.debug.HyperfProxyPathMapper" order="first" />
+        <errorHandler implementation="io.maliboot.www.hyperf.GithubErrorReporter"/>
+    </extensions>
+</idea-plugin>

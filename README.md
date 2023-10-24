@@ -1,2 +1,2 @@
-# idea-hyperf-plugin
-PhpStorm Hyperf Plugin
+IntelliJ IDEA / PhpStorm Hyperf Plugin
+========================
