@@ -13,10 +13,6 @@ import com.jetbrains.php.lang.psi.elements.PhpClass
 val hyperfProxyFileSuffix: String
     get() = "proxy.php"
 
-fun VirtualFile.getLineStartOffset(line: Int): Int {
-    return FileDocumentManager.getInstance().getDocument(this)?.getLineStartOffset(line) ?: 0
-}
-
 fun VirtualFile.getLineNumber(offset: Int): Int {
     return FileDocumentManager.getInstance().getDocument(this)?.getLineNumber(offset) ?: 0
 }

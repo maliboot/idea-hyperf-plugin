@@ -20,7 +20,9 @@
     <depends>com.jetbrains.php</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <php.debug.templateLanguage implementation="io.maliboot.www.hyperf.debug.HyperfProxyPathMapper" order="first" />
         <errorHandler implementation="io.maliboot.www.hyperf.GithubErrorReporter"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.intellij.php">
+        <debug.templateLanguage implementation="io.maliboot.www.hyperf.debug.HyperfProxyPathMapper"/>
     </extensions>
 </idea-plugin>
