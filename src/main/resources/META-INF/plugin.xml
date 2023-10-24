@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>io.maliboot.www.idea-hyperf-plugin</id>
+    <id>io.maliboot.www.hyperf</id>
     <name>Hyperf Support</name>
-    <vendor email="shilei_zhang@163.com" url="https://github.com/maliboot/maliboot">Maliboot</vendor>
+    <vendor email="shilei_zhang@163.com" url="https://github.com/maliboot/maliboot">stone</vendor>
     <description><![CDATA[
     Support for Hyperf framework / components.<br>
     <a href="https://github.com/maliboot/idea-hyperf-plugin">GitHub</a> | <a href="https://github.com/maliboot/idea-hyperf-plugin/issues">Issues</a>
