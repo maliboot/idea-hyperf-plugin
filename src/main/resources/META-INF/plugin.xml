@@ -23,6 +23,6 @@
         <errorHandler implementation="io.maliboot.www.hyperf.GithubErrorReporter"/>
     </extensions>
     <extensions defaultExtensionNs="com.intellij.php">
-        <debug.templateLanguage implementation="io.maliboot.www.hyperf.debug.HyperfProxyPathMapper"/>
+        <debug.templateLanguage implementation="io.maliboot.www.hyperf.debug.HyperfProxyPathMapper" order="first"/>
     </extensions>
 </idea-plugin>
