@@ -12,7 +12,7 @@ import com.jetbrains.php.lang.PhpFileType
 import com.jetbrains.php.util.pathmapper.PhpPathMapper
 import io.maliboot.www.hyperf.common.extend.*
 
-@SuppressWarnings("UnstableApiUsage")
+@Suppress("UnstableApiUsage")
 class HyperfProxyPathMapper : PhpTemplateLanguagePathMapper() {
 
     override fun isTemplateFileType(p0: FileType): Boolean {
