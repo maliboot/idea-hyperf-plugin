@@ -4,25 +4,100 @@
     <vendor email="shilei_zhang@163.com" url="https://github.com/maliboot/maliboot">stone</vendor>
     <description><![CDATA[
     Support for Hyperf framework / components.<br>
-    <a href="https://github.com/maliboot/idea-hyperf-plugin">GitHub</a> | <a href="https://github.com/maliboot/idea-hyperf-plugin/issues">Issues</a>
+    <a href="https://github.com/maliboot/idea-hyperf-plugin">GitHub</a> | <a href="https://github.com/maliboot/idea-hyperf-plugin#readme">Manual</a> | <a href="https://github.com/maliboot/idea-hyperf-plugin/issues">Issues</a>
       <br/>
       <h2>Features:</h2>
       <ul>
         <li>Debug: To debug template files instead of proxy files when AOP feature is used</li>
-      </ul>
-      <h2>Todo</h2>
-      <ul>
-        <li>Lombok(Testing...)</li>
+        <li>Lombok</li>
       </ul>
   ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.jetbrains.php</depends>
 
+    <extensionPoints>
+        <extensionPoint qualifiedName="io.maliboot.hyperf.lombokAnnotation" interface="io.maliboot.www.hyperf.lombok.annotation.LombokAnnotationFactory"/>
+    </extensionPoints>
+
     <extensions defaultExtensionNs="com.intellij">
+        <php.debug.templateLanguage implementation="io.maliboot.www.hyperf.extension.debug.HyperfProxyPathMapper" order="first"/>
+        <codeInsight.declarativeInlayProvider
+                implementationClass="io.maliboot.www.hyperf.lombok.codeInsight.MethodInlayProvider"
+                language="PHP"
+                bundle="messages.HyperfBundle"
+                group="lombok.method.inlay.group"
+                isEnabledByDefault="true"
+                nameKey="lombok.method.inlay.name"
+                providerId="lombok.method.inlay.provider.id"/>
+        <codeInsight.inlayActionHandler implementationClass="io.maliboot.www.hyperf.lombok.codeInsight.MethodDocInlayActionHandler"
+                                        handlerId="hyperf.lombok.method"/>
+        <lang.inspectionSuppressor
+                implementationClass="io.maliboot.www.hyperf.lombok.inspection.MyUndefinedMemberSuppressor"
+                language="PHP"/>
+        <lang.inspectionSuppressor
+                implementationClass="io.maliboot.www.hyperf.lombok.inspection.UnusedFieldInspectionSuppressor$UnusedPrivateFieldInspectionSuppressor"
+                language="PHP"/>
+        <lang.inspectionSuppressor
+                implementationClass="io.maliboot.www.hyperf.extension.aop.MultipleClassDeclarationsInspectionSuppressor"
+                language="PHP"/>
+        <lang.inspectionSuppressor
+                implementationClass="io.maliboot.www.hyperf.lombok.inspection.MyParamsInspectionSuppressor"
+                language="PHP"/>
+        <codeInsight.parameterInfo
+                implementationClass="io.maliboot.www.hyperf.lombok.codeInsight.parameter.CustomMethodParameterInfo"
+                language="PHP"
+                id="CustomMethodParameterInfo"
+                order="first"/>
+        <localInspection language="PHP"
+                         groupPath="PHP"
+                         shortName="MyUndefinedMethodInspection"
+                         groupKey="inspection.php.group.undefined"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="io.maliboot.www.hyperf.lombok.inspection.MyUndefinedMethodInspection"
+                         key="inspection.php.undefined.method.inspection.display.name"
+                         bundle="messages.PhpBundle"/>
+        <localInspection language="PHP"
+                         groupPath="PHP"
+                         shortName="MyUndefinedFieldInspection"
+                         groupKey="inspection.php.group.undefined"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="io.maliboot.www.hyperf.lombok.inspection.MyUndefinedFieldInspection"
+                         key="inspection.php.undefined.field.inspection.display.name"
+                         bundle="messages.PhpBundle"/>
+        <localInspection language="PHP"
+                         groupPath="PHP"
+                         shortName="MyPhpStrictTypeCheckingInspection"
+                         groupKey="inspection.php.group.type.compatibility"
+                         enabledByDefault="true"
+                         level="ERROR"
+                         implementationClass="io.maliboot.www.hyperf.lombok.inspection.MyPhpStrictTypeCheckingInspection"
+                         key="inspection.php.strict.type.checking.inspection.display.name"
+                         bundle="messages.PhpBundle"/>
+        <localInspection language="PHP"
+                         groupPath="PHP"
+                         shortName="MyPhpParamsInspection"
+                         groupKey="inspection.php.group.type.compatibility"
+                         enabledByDefault="true" level="WARNING"
+                         implementationClass="io.maliboot.www.hyperf.lombok.inspection.MyPhpParamsInspection"
+                         key="inspection.php.params.inspection.display.name" bundle="messages.PhpBundle"/>
+
+        <completion.contributor implementationClass="io.maliboot.www.hyperf.lombok.completion.LombokCompletionContributor" language="PHP"/>
+        <gotoDeclarationHandler implementation="io.maliboot.www.hyperf.lombok.completion.LombokGoToHandler"/>
+        <lang.documentationProvider language="PHP" implementationClass="io.maliboot.www.hyperf.lombok.doc.LombokDocumentation" order="first"/>
+        <lang.structureViewExtension implementation="io.maliboot.www.hyperf.lombok.structView.LombokStructureViewExtension"/>
         <errorHandler implementation="io.maliboot.www.hyperf.GithubErrorReporter"/>
+        <spellchecker.bundledDictionaryProvider implementation="io.maliboot.www.hyperf.extension.dic.HyperfDictionaryProvider"/>
     </extensions>
-    <extensions defaultExtensionNs="com.intellij.php">
-        <debug.templateLanguage implementation="io.maliboot.www.hyperf.debug.HyperfProxyPathMapper" order="first"/>
+
+    <extensions defaultExtensionNs="com.jetbrains.php">
+        <typeProvider4 implementation="io.maliboot.www.hyperf.lombok.typeProvider.CustomMemberTypeProvider"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="io.maliboot">
+        <hyperf.lombokAnnotation implementation="io.maliboot.www.hyperf.lombok.annotation.register.LombokAnnotationRegister" />
+        <hyperf.lombokAnnotation implementation="io.maliboot.www.hyperf.cola.ColaAnnotationRegister" />
     </extensions>
 </idea-plugin>
