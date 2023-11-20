@@ -18,7 +18,8 @@ IntelliJ IDEA / PhpStorm Hyperf Plugin
 
 # Feature
 ## 基础适配
-* 重复类声明：当AOP类产生代理文件，编辑器异常报错屏蔽。如`App_User.proxy.php 处存在类 'User' 的其他声明`错误将不再显示
+* 重复类声明：当AOP类产生代理文件，屏蔽重复类声明的异常报错。如`App_User.proxy.php 处存在类 'User' 的其他声明`错误将不再显示
+* 拼写检查：屏蔽框架常用词如`hyperf`、`swoole`、`jsonrpc`等等单词的拼写错误警告。如有遗漏或补充，请提交Issue给我。
 
 ## debug
 本插件会定位`模板文件`或`代理文件`的断点所在行第一个`ast节点`，计算出该节点的树路径相对偏移量，得出对应文件的断点位置，尽可能让`hyperf`得以在`模板文件`内调试

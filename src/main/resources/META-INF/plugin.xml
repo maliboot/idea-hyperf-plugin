@@ -26,7 +26,7 @@
                 implementationClass="io.maliboot.www.hyperf.lombok.codeInsight.MethodInlayProvider"
                 language="PHP"
                 bundle="messages.HyperfBundle"
-                group="lombok.method.inlay.group"
+                group="TYPES_GROUP"
                 isEnabledByDefault="true"
                 nameKey="lombok.method.inlay.name"
                 providerId="lombok.method.inlay.provider.id"/>

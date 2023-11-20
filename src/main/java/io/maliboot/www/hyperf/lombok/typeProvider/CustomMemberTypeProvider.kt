@@ -1,6 +1,8 @@
 package io.maliboot.www.hyperf.lombok.typeProvider
 
 import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.text.Strings
 import com.intellij.psi.PsiElement
@@ -18,6 +20,8 @@ class CustomMemberTypeProvider : PhpTypeProvider4 {
 
     companion object {
         const val ID = '马'
+
+        private val logger: Logger = Logger.getInstance(CustomMemberTypeProvider::class.java)
     }
 
     override fun getKey(): Char {
@@ -25,10 +29,14 @@ class CustomMemberTypeProvider : PhpTypeProvider4 {
     }
 
     override fun getType(p0: PsiElement?): PhpType? {
-        if (p0 == null || !p0.containingFile.isExcludeDir()) {
+        if (p0 == null || DumbService.getInstance(p0.project).isDumb || !p0.containingFile.isExcludeDir()) {
             return null
         }
 
+        return tryType(p0)
+    }
+
+    private fun tryType(p0: PsiElement): PhpType? {
         var isFieldReference = false
         val reference: MemberReference = when (p0) {
             is FieldReference -> {
@@ -44,14 +52,20 @@ class CustomMemberTypeProvider : PhpTypeProvider4 {
         } ?: return null
 
         val classReference = reference.classReference ?: return null
-        var classRefFQN = classReference.type.toString()
+        val classRefType = classReference.type.toString()
+        var classRefFQN = classRefType
             .removeSuffix("|?")
             .split("|")
             .last()
             .substringAfter("\\")
             .replace(")", "")
         if (classRefFQN.contains("(")) {
-            classRefFQN = classRefFQN.substring(classRefFQN.lastIndexOf("(") + 2)
+            classRefFQN = classRefFQN.substring(classRefFQN.lastIndexOf("(") + 1)
+            if (!classRefFQN.startsWith("\\")) {
+                logger.warn("类型解析异常：$classRefType")
+                return null
+            }
+            classRefFQN = classRefFQN.substring(1)
         }
         when (classReference) {
             is Variable, is MemberReference, is FunctionReference -> {

@@ -242,15 +242,7 @@ class CustomMemberPsiGist {
         }
 
         fun getCustomMembers(psiFile: PsiFile): Map<String, MyCustomMember> {
-            try {
-                return resolveFromIndexValue(psiFile)
-            } catch (processCancel: ProcessCanceledException) {
-                throw processCancel
-            } catch (e: Exception) {
-                logger.warn("索引异常，请报告给开发者")
-                logger.warn(e.message)
-            }
-            return emptyMap()
+            return resolveFromIndexValue(psiFile)
         }
 
         fun getCustomMembers(file: VirtualFile, project: Project): Map<String, MyCustomMember> {

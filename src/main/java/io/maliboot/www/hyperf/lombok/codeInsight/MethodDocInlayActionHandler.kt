@@ -12,6 +12,6 @@ class MethodDocInlayActionHandler: InlayActionHandler {
     override fun handleClick(editor: Editor, payload: InlayActionPayload) {
         payload as PsiPointerInlayActionPayload
         val fakePsiMember = payload.pointer.element as? FakePsiPhpClassMember ?: return
-        HintManagerImpl.getInstanceImpl().showInformationHint(editor, fakePsiMember.getDocumentation(), HintManager.RIGHT_UNDER)
+        HintManagerImpl.getInstanceImpl().showInformationHint(editor, fakePsiMember.getDocumentation())
     }
 }

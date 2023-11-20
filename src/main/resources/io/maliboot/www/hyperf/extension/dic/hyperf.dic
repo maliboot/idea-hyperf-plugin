@@ -1,4 +1,5 @@
 hyperf
+jsonrpc
 jsonrpc-http
 swoole
 maliboot
