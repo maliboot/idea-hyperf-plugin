@@ -22,9 +22,10 @@ internal class GetterAnnotation(classNode: PhpClassNode, fieldNode: PhpFieldNode
 
     override fun getCustomMethod(): List<CustomMethod> {
         val propertyType = getPhpType()
-        if (! propertyType.isNullable) {
+        if (phpFieldNode.default == null && ! propertyType.isNullable) {
             propertyType.add(PhpType.NULL)
         }
+
         val getterName =
             "get" + phpFieldNode.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
         return listOf(
@@ -33,7 +34,7 @@ internal class GetterAnnotation(classNode: PhpClassNode, fieldNode: PhpFieldNode
                 CustomClass(phpClassNode.type),
                 getterName,
                 propertyType,
-                listOf(CustomParameter("default", propertyType, "null"))
+                if (phpFieldNode.default != null) listOf() else listOf(CustomParameter("default", propertyType, "null"))
             )
         )
     }
