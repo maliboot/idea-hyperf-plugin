@@ -191,7 +191,7 @@ class CustomMemberPsiGist {
                             if (it.contains("?")) {
                                 myFieldTypeList.add("null")
                             }
-                            myFieldTypeList.add(filterClassType(it, uses))
+                            myFieldTypeList.add(filterClassType(it.removePrefix("?"), uses))
                         }
                     }
                 }
