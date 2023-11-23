@@ -25,6 +25,13 @@ class ToArrayAnnotation(classNode: PhpClassNode) : AbstractClassAnnotation(class
                 "toArray",
                 PhpType.ARRAY,
                 listOf()
+            ),
+            CustomMethod(
+                FEATURE,
+                CustomClass(phpClassNode.type),
+                "all",
+                PhpType.ARRAY,
+                listOf()
             )
         )
     }
