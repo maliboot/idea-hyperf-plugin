@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement
 import com.jetbrains.php.lang.inspections.PhpMultipleClassDeclarationsInspection
 import com.jetbrains.php.lang.psi.elements.ClassReference
 import com.jetbrains.php.lang.psi.elements.PhpClass
-import io.maliboot.devkit.idea.lombok.extend.getPhpClasses
+import io.maliboot.devkit.idea.hyperf.tool.ext.getPhpClasses
 
 
 class MultipleClassDeclarationsInspectionSuppressor : InspectionSuppressor {

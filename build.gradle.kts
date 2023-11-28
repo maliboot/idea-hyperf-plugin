@@ -4,8 +4,8 @@ plugins {
   id("org.jetbrains.intellij") version "1.16.0"
 }
 
-group = "io.maliboot.devkit"
-version = "1.0.0-rc.3"
+group = "io.maliboot.devkit.idea"
+version = "1.0.0-rc.4"
 
 repositories {
   mavenCentral()
