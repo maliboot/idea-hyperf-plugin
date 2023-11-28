@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.maliboot.devkit.idea"
-version = "1.0.0-rc.3"
+version = "1.0.0-rc.4"
 
 repositories {
   mavenCentral()
