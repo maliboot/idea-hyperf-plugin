@@ -10,7 +10,7 @@ import com.jetbrains.php.debug.template.PhpTemplateDebugStateService
 import com.jetbrains.php.debug.template.PhpTemplateLanguagePathMapper
 import com.jetbrains.php.lang.PhpFileType
 import com.jetbrains.php.util.pathmapper.PhpPathMapper
-import io.maliboot.devkit.idea.common.extend.*
+import io.maliboot.devkit.idea.hyperf.tool.ext.*
 
 @Suppress("UnstableApiUsage")
 class HyperfProxyPathMapper : PhpTemplateLanguagePathMapper() {
