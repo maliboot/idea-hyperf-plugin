@@ -31,7 +31,7 @@
                 nameKey="lombok.method.inlay.name"
                 providerId="lombok.method.inlay.provider.id"/>
         <codeInsight.inlayActionHandler implementationClass="io.maliboot.devkit.idea.lombok.codeInsight.MethodDocInlayActionHandler"
-                                        handlerId="hyperf.lombok.method"/>
+                                        handlerId="lombok.method"/>
         <lang.inspectionSuppressor
                 implementationClass="io.maliboot.devkit.idea.lombok.inspection.MyUndefinedMemberSuppressor"
                 language="PHP"/>

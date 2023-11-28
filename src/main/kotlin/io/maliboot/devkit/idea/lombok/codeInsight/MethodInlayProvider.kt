@@ -12,7 +12,6 @@ import io.maliboot.devkit.idea.lombok.psi.FakePsiPhpMethod
 import io.maliboot.devkit.idea.lombok.psi.PhpClassEx
 
 class MethodInlayProvider : InlayHintsProvider {
-
     override fun createCollector(
         file: PsiFile,
         editor: Editor
