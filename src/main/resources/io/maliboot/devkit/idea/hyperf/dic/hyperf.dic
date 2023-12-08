@@ -3,3 +3,4 @@ jsonrpc
 jsonrpc-http
 swoole
 maliboot
+Arrayable
