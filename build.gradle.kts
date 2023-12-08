@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.maliboot.devkit.idea"
-version = "1.0.0-rc.4"
+version = "1.0.0-rc.5"
 
 repositories {
   mavenCentral()
@@ -32,7 +32,7 @@ tasks {
 
   patchPluginXml {
     sinceBuild.set("231")
-    untilBuild.set("232.*")
+    untilBuild.set("233.*")
     changeNotes.set(file("src/main/resources/META-INF/change-notes.html").readText().replace("<html>", "").replace("</html>", ""))
   }
 
