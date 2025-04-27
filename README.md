@@ -1,10 +1,9 @@
 IntelliJ IDEA / PhpStorm Hyperf Plugin
 ========================
-[toc]
 
 | Key        | Value                                     |
 |------------|-------------------------------------------|
-| Plugin Url | https://plugins.jetbrains.com/plugin/23007 |
+| Plugin Url | https://plugins.jetbrains.com/plugin/23164 |
 | ID         | `io.maliboot.www.hyperf`                  |
 | Changelog  | [CHANGELOG](CHANGELOG.md)                 |
 <!-- Plugin description -->
@@ -14,11 +13,11 @@ This is a PHPStorm plugin that provides support for the hyperf framework/compone
 # 简介
 这是一个对`hyperf`框架/组件、或者依赖`hyperf组件`的第三方`vendor`扩展包，提供功能支持的`PHPStorm`插件。
 
-[功能介绍](https://github.com/maliboot/idea-hyperf-plugin/blob/master/README.md)
+[功能介绍传送门](https://github.com/maliboot/idea-hyperf-plugin/blob/master/README.md)
 <!-- Plugin description end -->
 
 # Install
-* 通过插件市场安装 [Hyperf Booster](https://plugins.jetbrains.com/plugin/23007) `Settings -> Plugins -> Browse repositories`
+* 通过插件市场安装 [Hyperf Booster](https://plugins.jetbrains.com/plugin/23164) `Settings -> Plugins -> Browse repositories`
 * 通过本地磁盘安装 [Hyperf Booster](https://github.com/maliboot/idea-hyperf-plugin/releases) `Settings -> Plugins -> Install Plugin from Disk...`，插件jar包可以在[release](https://github.com/maliboot/idea-hyperf-plugin/releases)页面找到
 * 预览版本只能通过[release](https://github.com/maliboot/idea-hyperf-plugin/releases)页面安装，里面包含了一些正在测试中的功能
 

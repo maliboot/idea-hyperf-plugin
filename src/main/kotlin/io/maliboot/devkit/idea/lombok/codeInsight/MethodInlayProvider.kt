@@ -5,7 +5,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.SmartPointerManager
-import com.intellij.refactoring.suggested.endOffset
+import com.intellij.psi.util.startOffset
 import com.jetbrains.php.lang.psi.elements.PhpClass
 import io.maliboot.devkit.idea.common.LombokBundle
 import io.maliboot.devkit.idea.lombok.psi.FakePsiPhpMethod
@@ -34,9 +34,10 @@ class MethodInlayProvider : InlayHintsProvider {
                     if (fakeMethodEntry.generatedByFQN != field.fqn) {
                         continue
                     }
+
                     sink.addPresentation(
-                        position = InlineInlayPosition(field.endOffset + 1, true),
-                        hasBackground = false
+                        position = InlineInlayPosition(field.startOffset  + field.textLength + 1, true),
+                        hintFormat = HintFormat.default
                     ) {
                         text(
                             fakeMethodEntry.getFeatureName(),
