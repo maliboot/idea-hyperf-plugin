@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>io.maliboot.devkit.idea.hyperf</id>
-    <name>Hyperf Support</name>
+    <id>io.maliboot.www.hyperf</id>
+    <name>Hyperf Booster</name>
     <vendor email="shilei_zhang@163.com" url="https://github.com/maliboot/maliboot">stone</vendor>
     <description><![CDATA[
     Support for Hyperf framework / components.<br>
@@ -17,96 +17,58 @@
     <depends>com.jetbrains.php</depends>
 
     <extensionPoints>
-        <extensionPoint
-                interface="io.maliboot.devkit.idea.hyperf.lombok.annotation.LombokAnnotationFactory"
-                name="lombokAnnotation"/>
+        <extensionPoint qualifiedName="io.maliboot.devkit.idea.lombokAnnotation" interface="io.maliboot.devkit.idea.lombok.annotation.LombokAnnotationFactory"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
-        <php.debug.templateLanguage implementation="io.maliboot.devkit.idea.hyperf.debug.HyperfProxyPathMapper"
-                                    order="first"/>
+        <postStartupActivity implementation="io.maliboot.devkit.idea.hyperf.debug.HyperfStartupActivity"/>
+
         <codeInsight.declarativeInlayProvider
-                implementationClass="io.maliboot.devkit.idea.hyperf.lombok.codeInsight.MethodInlayProvider"
+                implementationClass="io.maliboot.devkit.idea.lombok.codeInsight.MethodInlayProvider"
                 language="PHP"
                 bundle="messages.LombokBundle"
                 group="TYPES_GROUP"
                 isEnabledByDefault="true"
                 nameKey="lombok.method.inlay.name"
                 providerId="lombok.method.inlay.provider.id"/>
-        <codeInsight.inlayActionHandler
-                implementationClass="io.maliboot.devkit.idea.hyperf.lombok.codeInsight.MethodDocInlayActionHandler"
-                handlerId="lombok.method"/>
+        <codeInsight.inlayActionHandler implementationClass="io.maliboot.devkit.idea.lombok.codeInsight.MethodDocInlayActionHandler"
+                                        handlerId="hyperf.lombok.method"/>
         <lang.inspectionSuppressor
-                implementationClass="io.maliboot.devkit.idea.hyperf.lombok.inspection.MyUndefinedMemberSuppressor"
+                implementationClass="io.maliboot.devkit.idea.lombok.inspection.MyUndefinedMemberSuppressor"
                 language="PHP"/>
         <lang.inspectionSuppressor
-                implementationClass="io.maliboot.devkit.idea.hyperf.lombok.inspection.UnusedFieldInspectionSuppressor$UnusedPrivateFieldInspectionSuppressor"
+                implementationClass="io.maliboot.devkit.idea.lombok.inspection.UnusedFieldInspectionSuppressor$UnusedPrivateFieldInspectionSuppressor"
                 language="PHP"/>
         <lang.inspectionSuppressor
                 implementationClass="io.maliboot.devkit.idea.hyperf.aop.MultipleClassDeclarationsInspectionSuppressor"
                 language="PHP"/>
         <lang.inspectionSuppressor
-                implementationClass="io.maliboot.devkit.idea.hyperf.lombok.inspection.MyParamsInspectionSuppressor"
+                implementationClass="io.maliboot.devkit.idea.lombok.inspection.MyParamsInspectionSuppressor"
                 language="PHP"/>
-        <codeInsight.parameterInfo
-                implementationClass="io.maliboot.devkit.idea.hyperf.lombok.codeInsight.parameter.CustomMethodParameterInfo"
-                language="PHP"
-                id="CustomMethodParameterInfo"
-                order="first"/>
         <localInspection language="PHP"
                          groupPath="PHP"
                          shortName="MyUndefinedMethodInspection"
                          groupKey="inspection.php.group.undefined"
                          enabledByDefault="true"
                          level="WARNING"
-                         implementationClass="io.maliboot.devkit.idea.hyperf.lombok.inspection.MyUndefinedMethodInspection"
+                         implementationClass="io.maliboot.devkit.idea.lombok.inspection.MyUndefinedMethodInspection"
                          key="inspection.php.undefined.method.inspection.display.name"
                          bundle="messages.PhpBundle"/>
-        <localInspection language="PHP"
-                         groupPath="PHP"
-                         shortName="MyUndefinedFieldInspection"
-                         groupKey="inspection.php.group.undefined"
-                         enabledByDefault="true"
-                         level="WARNING"
-                         implementationClass="io.maliboot.devkit.idea.hyperf.lombok.inspection.MyUndefinedFieldInspection"
-                         key="inspection.php.undefined.field.inspection.display.name"
-                         bundle="messages.PhpBundle"/>
-        <localInspection language="PHP"
-                         groupPath="PHP"
-                         shortName="MyPhpStrictTypeCheckingInspection"
-                         groupKey="inspection.php.group.type.compatibility"
-                         enabledByDefault="true"
-                         level="ERROR"
-                         implementationClass="io.maliboot.devkit.idea.hyperf.lombok.inspection.MyPhpStrictTypeCheckingInspection"
-                         key="inspection.php.strict.type.checking.inspection.display.name"
-                         bundle="messages.PhpBundle"/>
-        <localInspection language="PHP"
-                         groupPath="PHP"
-                         shortName="MyPhpParamsInspection"
-                         groupKey="inspection.php.group.type.compatibility"
-                         enabledByDefault="true" level="WARNING"
-                         implementationClass="io.maliboot.devkit.idea.hyperf.lombok.inspection.MyPhpParamsInspection"
-                         key="inspection.php.params.inspection.display.name" bundle="messages.PhpBundle"/>
 
-        <completion.contributor
-                implementationClass="io.maliboot.devkit.idea.hyperf.lombok.completion.LombokCompletionContributor"
-                language="PHP"/>
-        <gotoDeclarationHandler implementation="io.maliboot.devkit.idea.hyperf.lombok.completion.LombokGoToHandler"/>
-        <lang.documentationProvider language="PHP"
-                                    implementationClass="io.maliboot.devkit.idea.hyperf.lombok.doc.LombokDocumentation"
-                                    order="first"/>
-        <lang.structureViewExtension
-                implementation="io.maliboot.devkit.idea.hyperf.lombok.structView.LombokStructureViewExtension"/>
-        <errorHandler implementation="io.maliboot.devkit.idea.hyperf.GithubErrorReporter"/>
-        <spellchecker.bundledDictionaryProvider
-                implementation="io.maliboot.devkit.idea.hyperf.dic.HyperfDictionaryProvider"/>
+        <completion.contributor implementationClass="io.maliboot.devkit.idea.lombok.completion.LombokCompletionContributor" language="PHP"/>
+        <gotoDeclarationHandler implementation="io.maliboot.devkit.idea.lombok.completion.LombokGoToHandler"/>
+        <lang.documentationProvider language="PHP" implementationClass="io.maliboot.devkit.idea.lombok.doc.LombokDocumentation" order="first"/>
+        <lang.structureViewExtension implementation="io.maliboot.devkit.idea.lombok.structView.LombokStructureViewExtension"/>
+        <errorHandler implementation="io.maliboot.devkit.idea.GithubErrorReporter"/>
+        <spellchecker.bundledDictionaryProvider implementation="io.maliboot.devkit.idea.hyperf.dic.HyperfDictionaryProvider"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.jetbrains.php">
-        <typeProvider4 implementation="io.maliboot.devkit.idea.hyperf.lombok.typeProvider.CustomMemberTypeProvider"/>
+        <typeProvider4 implementation="io.maliboot.devkit.idea.lombok.typeProvider.CustomMemberTypeProvider"/>
     </extensions>
 
-    <extensions defaultExtensionNs="io.maliboot.devkit.idea.hyperf">
-        <lombokAnnotation implementation="io.maliboot.devkit.idea.hyperf.lombok.annotation.register.LombokAnnotationRegister"/>
+    <extensions defaultExtensionNs="io.maliboot.devkit.idea">
+        <lombokAnnotation implementation="io.maliboot.devkit.idea.lombok.annotation.register.LombokAnnotationRegister" />
+        <lombokAnnotation implementation="io.maliboot.devkit.idea.cola.ColaAnnotationRegister" />
     </extensions>
 </idea-plugin>
