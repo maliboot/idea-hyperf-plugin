@@ -37,14 +37,16 @@ class MethodInlayProvider : InlayHintsProvider {
 
                     sink.addPresentation(
                         position = InlineInlayPosition(field.startOffset  + field.textLength + 1, true),
-                        hintFormat = HintFormat.default
+                        tooltip = fakeMethodEntry.getDocumentation(),
+                        hintFormat = HintFormat.default.withHorizontalMargin(HintFormat.default.horizontalMarginPadding)
                     ) {
                         text(
                             fakeMethodEntry.getFeatureName(),
                             InlayActionData(
                                 PsiPointerInlayActionPayload(
-                                    SmartPointerManager.getInstance(element.project) .createSmartPsiElementPointer(fakeMethodEntry)
-                                ), LombokBundle.message("lombok.method.inlay.handler")
+                                    SmartPointerManager.getInstance(element.project).createSmartPsiElementPointer(fakeMethodEntry)
+                                ),
+                                PsiPointerInlayActionNavigationHandler.HANDLER_ID
                             )
                         )
                     }
