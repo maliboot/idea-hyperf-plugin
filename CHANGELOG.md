@@ -3,6 +3,17 @@
 # Changelog
 <hr>
 
+## [1.1.1] - 2025-04-28
+### Added
+- Nothing
+
+### Removed
+- 去除旧版本不兼容api相应的功能
+
+### Changed
+- 适配PHPStorm-243.*
+<hr>
+
 ## [1.1.0] - 2025-04-27
 ### Added
 - Nothing
