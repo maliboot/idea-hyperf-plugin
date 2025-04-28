@@ -3,8 +3,10 @@ package io.maliboot.devkit.idea.lombok.psi
 import com.intellij.lang.ASTNode
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.application.ReadAction
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.FakePsiElement
+import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.util.Processor
 import com.jetbrains.php.PhpPresentationUtil
 import com.jetbrains.php.codeInsight.PhpScope
@@ -169,9 +171,11 @@ class FakePsiPhpMethod(val method: CustomMethod, val phpClass: PhpClass, val gen
                 }
                 .toTypedArray()
         }
-        return method.parameters
-            .map { FakePsiPhpParameter(it, this) }
-            .toTypedArray()
+
+        // 把 findChildOfType 包装进 ReadAction
+        return ReadAction.compute<Collection<Parameter>?, Throwable> {
+            PsiTreeUtil.findChildrenOfType(children.first { it is ParameterList }, Parameter::class.java)
+        }?.toTypedArray() ?: emptyArray()
     }
 
     override fun getParameter(index: Int): Parameter? {
