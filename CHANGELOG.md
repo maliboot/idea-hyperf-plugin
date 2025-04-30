@@ -3,6 +3,17 @@
 # Changelog
 <hr>
 
+## [1.1.2] - 2025-04-30
+### Added
+- 添加框架创建骨架
+
+### Removed
+- 去除旧版本不兼容api相应的功能
+
+### Changed
+- 适配PHPStorm-243.*
+<hr>
+
 ## [1.1.1] - 2025-04-28
 ### Added
 - Nothing
