@@ -7,7 +7,6 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.SmartPointerManager
 import com.intellij.psi.util.startOffset
 import com.jetbrains.php.lang.psi.elements.PhpClass
-import io.maliboot.devkit.idea.common.LombokBundle
 import io.maliboot.devkit.idea.lombok.psi.FakePsiPhpMethod
 import io.maliboot.devkit.idea.lombok.psi.PhpClassEx
 

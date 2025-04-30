@@ -51,7 +51,7 @@ class CustomMemberTypeProvider : PhpTypeProvider4 {
 
         val classReference = reference.classReference ?: return null
         val classRefType = classReference.type.toString()
-        var classRefFQN = classRefType
+        val classRefFQN = classRefType
             .removeSuffix("|?")
             .split("|")
             .last()
