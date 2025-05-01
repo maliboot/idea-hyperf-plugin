@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin require-restart="true">
     <id>io.maliboot.www.hyperf</id>
     <name>Hyperf Booster</name>
     <vendor email="shilei_zhang@163.com" url="https://github.com/maliboot/maliboot">stone</vendor>
