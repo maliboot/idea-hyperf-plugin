@@ -26,8 +26,13 @@ This is a PHPStorm plugin that provides support for the hyperf framework/compone
 * 重复类声明：当AOP类产生代理文件，屏蔽重复类声明的异常报错。如`App_User.proxy.php 处存在类 'User' 的其他声明`错误将不再显示
 * 拼写检查：屏蔽框架常用词如`hyperf`、`swoole`、`jsonrpc`等等单词的拼写错误警告。如有遗漏或补充，请提交Issue给我。
 
+## 项目创建向导
+![Skeleton Preview](doc/skeleton.png)
+* 支持像创建`Symfony`项目一样，创建`Hyperf`项目。
+* 提供多版本的`Hyperf`骨架版本选择
+
 ## debug
-`swoole`官网提到，在版本`5.1`以上支持了`xdebug`调试，所以做了这样一个功能
+`swoole`官网提到，在版本`5.1`以上支持了`xdebug`调试，所以做了这样一个功能。此功能主要是为了解决`Hyperf`调试时，断点跳到代理文件内的问题。
 > 调试准备，php.ini中修改: 
 > 
 > swoole.enable_fiber_mock=On
@@ -39,7 +44,7 @@ This is a PHPStorm plugin that provides support for the hyperf framework/compone
 ## Lombok‼️（**该功能完全不依赖`代理文件`**）
 ![Debug Preview](doc/lombok.gif)
 * Lombok支持：[maliboot/lombok](https://github.com/maliboot/lombok)适配，解决该PHP扩展使用时编辑器没有自动补全、参数提示、错误语法高量、导航等功能。
-* **该功能完全不依赖`代理文件`**。通过构建了相应的`FakePhpPsiElement`元素, 旨在极端情况下，提供对[maliboot/lombok](https://github.com/maliboot/lombok)的全方位支持
+* **该功能完全不依赖`代理文件`**。通过构建了相应的`FakePhpPsiElement`元素, 旨在极端情况下（如项目没有热启动，无法更新代理文件时），提供对[maliboot/lombok](https://github.com/maliboot/lombok)的全方位支持
 
 # Idea
 * 如果使用插件过程中有报错，可以[提交堆栈报告](https://github.com/maliboot/idea-hyperf-plugin/issues/new?title=[BUG]XXX主题&body=...)给我。这对我非常重要，我会及时修复
