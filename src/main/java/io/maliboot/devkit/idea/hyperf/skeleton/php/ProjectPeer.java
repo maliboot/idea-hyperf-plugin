@@ -36,6 +36,11 @@ public class ProjectPeer implements ProjectGeneratorPeer<ProjectPeer.MyProjectSe
     }
 
     @Override
+    public @NotNull JComponent getComponent() {
+        return this.myComposerPanel.getPanel();
+    }
+
+    @Override
     public void buildUI(@NotNull SettingsStep settingsStep) {
         for (Map.Entry<JLabel, JComponent> map : this.myProjectForm.getLabeledComponents().entrySet()) {
             settingsStep.addSettingsField(map.getKey().getText(), map.getValue());

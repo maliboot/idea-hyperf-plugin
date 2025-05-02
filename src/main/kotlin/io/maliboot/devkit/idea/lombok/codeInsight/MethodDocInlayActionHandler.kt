@@ -4,16 +4,16 @@ import com.intellij.codeInsight.hint.HintManagerImpl
 import com.intellij.codeInsight.hints.declarative.InlayActionHandler
 import com.intellij.codeInsight.hints.declarative.InlayActionPayload
 import com.intellij.codeInsight.hints.declarative.PsiPointerInlayActionPayload
-import com.intellij.openapi.editor.event.EditorMouseEvent
+import com.intellij.openapi.editor.Editor
 import io.maliboot.devkit.idea.lombok.psi.FakePsiPhpClassMember
 
 class MethodDocInlayActionHandler: InlayActionHandler {
     override fun handleClick(
-        e: EditorMouseEvent,
+        editor: Editor,
         payload: InlayActionPayload
     ) {
         payload as PsiPointerInlayActionPayload
         val fakePsiMember = payload.pointer.element as? FakePsiPhpClassMember ?: return
-        HintManagerImpl.getInstanceImpl().showInformationHint(e.editor, fakePsiMember.getDocumentation())
+        HintManagerImpl.getInstanceImpl().showInformationHint(editor, fakePsiMember.getDocumentation())
     }
 }

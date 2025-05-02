@@ -91,7 +91,7 @@ public class ProjectSpecificSettingsStep extends ProjectSettingsStepBase {
     }
 
     @Override
-    protected @NotNull Path findSequentNonExistingUntitled() {
-        return FileUtil.findSequentNonexistentFile(new File(ProjectUtil.getBaseDir()), "hyperf-skeleton", "").toPath();
+    protected @NotNull File findSequentNonExistingUntitled() {
+        return FileUtil.findSequentNonexistentFile(new File(ProjectUtil.getBaseDir()), "hyperf-skeleton", "");
     }
 }
