@@ -3,8 +3,6 @@ package io.maliboot.devkit.idea.lombok.index
 import com.intellij.lang.LighterAST
 import com.intellij.lang.LighterASTNode
 import com.intellij.openapi.diagnostic.Logger
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.source.tree.LightTreeUtil
 import com.intellij.psi.tree.IElementType
@@ -198,7 +196,7 @@ class CustomMemberPsiGist {
             if (myFieldName == null || myFieldTypeList.isEmpty()) {
                 return null
             }
-            return PhpFieldNode(myFieldName!!, myFieldTypeList.joinToString("|"), myFieldDefault, myFieldAttrs)
+            return PhpFieldNode(myFieldName, myFieldTypeList.joinToString("|"), myFieldDefault, myFieldAttrs)
         }
 
         private fun filterClassType(type: String, uses: Map<String, String>): String {

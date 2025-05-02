@@ -1,5 +1,6 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
   id("java")
@@ -91,6 +92,15 @@ changelog {
 }
 
 tasks {
+  // Set the JVM compatibility versions
+  withType<JavaCompile> {
+    sourceCompatibility = providers.gradleProperty("javaVersion").get()
+    targetCompatibility = providers.gradleProperty("javaVersion").get()
+  }
+  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+      compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+  }
+
   wrapper {
     gradleVersion = providers.gradleProperty("gradleVersion").get()
   }
