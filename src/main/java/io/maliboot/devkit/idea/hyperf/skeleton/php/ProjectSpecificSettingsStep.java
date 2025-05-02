@@ -1,17 +1,21 @@
 package io.maliboot.devkit.idea.hyperf.skeleton.php;
 
+import com.intellij.ide.IdeCoreBundle;
 import com.intellij.ide.impl.ProjectUtil;
 import com.intellij.ide.util.projectWizard.AbstractNewProjectStep;
+import com.intellij.ide.util.projectWizard.ProjectSettingsStepBase;
 import com.intellij.ide.util.projectWizard.WebProjectSettingsStepWrapper;
 import com.intellij.ide.util.projectWizard.WebProjectTemplate;
+import com.intellij.lang.javascript.boilerplate.AbstractGithubTagDownloadedProjectGenerator;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.VerticalFlowLayout;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.platform.DirectoryProjectGenerator;
 import com.intellij.platform.templates.TemplateProjectDirectoryGenerator;
+import com.intellij.ui.components.ActionLink;
 import com.intellij.util.ui.JBDimension;
+import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
-import com.jetbrains.php.actions.PhpStormProjectSpecificSettingsStep;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -21,10 +25,26 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectSpecificSettingsStep extends PhpStormProjectSpecificSettingsStep {
+public class ProjectSpecificSettingsStep extends ProjectSettingsStepBase {
 
     public ProjectSpecificSettingsStep(DirectoryProjectGenerator projectGenerator, AbstractNewProjectStep.AbstractCallback callback) {
         super(projectGenerator, callback);
+    }
+
+    public JPanel createPanel() {
+        JPanel var1 = super.createPanel();
+        JPanel var2 = new JPanel(new BorderLayout());
+        JLabel var3 = new JLabel(IdeCoreBundle.message("title.new.project", new Object[0]));
+        var3.setFont(var3.getFont().deriveFont(1));
+        var2.add(var3, "West");
+        if (this.myProjectGenerator instanceof AbstractGithubTagDownloadedProjectGenerator) {
+            ActionLink var4 = ((AbstractGithubTagDownloadedProjectGenerator)this.myProjectGenerator).createGitHubLink();
+            var2.add(var4, "East");
+        }
+
+        var2.setBorder(JBUI.Borders.emptyBottom(10));
+        var1.add(var2, "North");
+        return var1;
     }
 
     @Override
