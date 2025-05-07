@@ -12,6 +12,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.ui.JBDimension;
+import kotlin.Unit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,7 +61,7 @@ public class ProjectForm {
 
     private void init() {
         this.serverUrlLink.setText("hyperf.io");
-        this.serverUrlLink.setName("https://github.com/hyperf/hyperf-skeleton/archive/refs/tags");
+        this.serverUrlLink.setName("https://mirrors.cloud.tencent.com/repository/composer/hyperf/hyperf-skeleton/v3.1.2/hyperf-hyperf-skeleton-v3.1.2.zip");
 
         // 设置服务器地址
         InplaceButton serverUrlSettingBtn = new InplaceButton(
@@ -127,14 +128,20 @@ public class ProjectForm {
         phpVersionList.add("8.1");
         phpVersionList.add("8.2");
         phpVersionList.add("8.3");
-        this.phpVersionSegComp = (new SegmentedBtnComp()).create(phpVersionList);
+        this.phpVersionSegComp = (new SegmentedBtnComp()).create(phpVersionList, null);
         this.phpVersionJPanel = this.phpVersionSegComp.getDialogPanel();
 
         // 框架版本
         ArrayList<String> frameworkVersionList = new ArrayList<>();
-        frameworkVersionList.add("v3.0.2");
         frameworkVersionList.add("v3.1.2");
-        this.versionSegComp = (new SegmentedBtnComp()).create(frameworkVersionList);
+        frameworkVersionList.add("v3.0.2");
+        this.versionSegComp = (new SegmentedBtnComp()).create(frameworkVersionList, (oldVal, newVal) -> {
+            String serverLink = this.serverUrlLink.getName();
+            if (serverLink.contains(oldVal) && serverLink.startsWith("https://mirrors.cloud.tencent.com")) {
+                this.serverUrlLink.setName(serverLink.replace(oldVal, newVal));
+            }
+            return Unit.INSTANCE;
+        });
         this.versionJPanel = this.versionSegComp.getDialogPanel();
 
 
@@ -143,7 +150,7 @@ public class ProjectForm {
         keywordList.add("skeleton");
         keywordList.add("swoole");
         keywordList.add("hyperf");
-        this.keywordsSegComp = (new SegmentedBtnComp()).create(keywordList);
+        this.keywordsSegComp = (new SegmentedBtnComp()).create(keywordList, null);
         this.keywordsJPanel = this.keywordsSegComp.getDialogPanel();
 
         // 镜像源
