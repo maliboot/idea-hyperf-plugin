@@ -8,10 +8,10 @@ IntelliJ IDEA / PhpStorm Hyperf Plugin
 | Changelog  | [CHANGELOG](CHANGELOG.md)                 |
 <!-- Plugin description -->
 # About
-This is a PHPStorm plugin that provides support for the hyperf framework/component or third-party vendor extensions dependent on hyperf components.
+This is a PHPStorm plugin that provides support for the hyperf framework/component or third-party vendor extensions dependent on hyperf components. Enhancements include debug features and support for Lombok.
 
 # 简介
-这是一个对`hyperf`框架/组件、或者依赖`hyperf组件`的第三方`vendor`扩展包，提供功能支持的`PHPStorm`插件。
+这是一个对`hyperf`框架/组件、或者依赖`hyperf组件`的第三方`vendor`扩展包，提供功能支持的`PHPStorm`插件。包含`debug`增强、`lombok`支持等。
 
 [功能介绍传送门](https://github.com/maliboot/idea-hyperf-plugin/blob/master/README.md)
 <!-- Plugin description end -->

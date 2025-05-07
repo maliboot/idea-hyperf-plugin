@@ -17,6 +17,10 @@ fun VirtualFile.getLineNumber(offset: Int): Int {
     return FileDocumentManager.getInstance().getDocument(this)?.getLineNumber(offset) ?: 0
 }
 
+fun VirtualFile.isProxyFile(): Boolean {
+    return this.path.endsWith(hyperfProxyFileSuffix)
+}
+
 fun VirtualFile.getHyperfProxyFile(project: Project): VirtualFile? {
     val psiFile = this.findPsiFile(project)
     if (psiFile !is PhpFile) {

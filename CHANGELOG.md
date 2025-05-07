@@ -3,6 +3,17 @@
 # Changelog
 <hr>
 
+## [2.1.1] - 2025-05-07
+### Added
+- hyperf-debug调试时，支持从代理文件自动跳转到源文件类+行处
+
+### Removed
+- 无
+
+### Changed
+- 修改hyperf-skeleton下载源地址，默认用腾讯云镜像源下载zip骨架包，解决github下载超时问题
+<hr>
+
 ## [2.1.0] - 2025-05-01
 ### Added
 - Nothing

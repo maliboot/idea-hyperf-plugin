@@ -65,11 +65,13 @@ public class ProjectGenerator extends WebProjectTemplate<ProjectPeer.MyProjectSe
     @Override
     public void generateProject(@NotNull Project project, @NotNull VirtualFile baseDir, ProjectPeer.@NotNull MyProjectSettings settings, @NotNull Module module) {
         String url = Strings.trimEnd(settings.getServerUrl(), "/");
-        boolean isGitRepo = Strings.startsWith(url, 0, "https://git");
-        if (isGitRepo) {
-            url = url + "/" + settings.getVersion() + ".zip";
-        } else {
-            url = url + getQryParams(settings);
+        boolean isGitRepo = url.startsWith("https://git") || url.startsWith("https://mirrors");
+        if (!url.endsWith(".zip")) {
+            if (isGitRepo) {
+                url = url + "/" + settings.getVersion() + ".zip";
+            } else {
+                url = url + getQryParams(settings);
+            }
         }
 
         String fileName = URLUtil.encodeURIComponent(DigestUtils.md5Hex(url) + ".zip");
@@ -83,50 +85,50 @@ public class ProjectGenerator extends WebProjectTemplate<ProjectPeer.MyProjectSe
             String unzipTitle = taskTitle + "骨架Zip解压";
             try {
                 ZipUtil.unzipWithProgressSynchronously(project, unzipTitle, zipArchiveFile, VfsUtilCore.virtualToIoFile(baseDir), null, true);
-                baseDir.refresh(false, true);
                 // json文件改写
                 if (isGitRepo) {
-                    ComposerUtils composerUtils = new ComposerUtils(project);
-                    composerUtils.setConfig(Map.of(
-                            "name", settings.getPkgName() + "/" + settings.getVendorName(),
-                            "description", settings.getDesc()
-                    ), false);
-                    // require
-                    ArrayList<Map<String, String>> requireData = new ArrayList<>();
-                    requireData.add(Map.of("php", ">=" + settings.getPhpVersion()));
-                    settings.getRequireDependencies().forEach(dependency -> {
-                        String myVer = dependency.getVersion();
-                        if (myVer.contains("default")) {
-                            myVer = "*";
-                        }
-                        requireData.add(Map.of(dependency.getName(), myVer));
-                    });
-                    composerUtils.setConfig("require", requireData, false);
-                    // require-dev
-                    ArrayList<Map<String, String>> requireDevData = new ArrayList<>();
-                    settings.getRequireDevDependencies().forEach(dependency -> {
-                        String myVer = dependency.getVersion();
-                        if (myVer.contains("default")) {
-                            myVer = "*";
-                        }
-                        requireDevData.add(Map.of(dependency.getName(), myVer));
-                    });
-                    composerUtils.setConfig("require-dev", requireDevData, false);
-                    // repositories
-                    ArrayList<Map<String, String>> repositoriesData = new ArrayList<>();
-                    repositoriesData.add(Map.of(
-                            "type", "composer",
-                            "url", settings.getPackagistUrl()
-                    ));
-                    ArrayList<ArrayList<Map<String, String>>> repositoriesOuterData = new ArrayList<>();
-                    repositoriesOuterData.add(repositoriesData);
-                    composerUtils.setConfigByArrayJson("repositories", repositoriesOuterData, false);
-
-                    // composer install
-                    composerUtils.setText(() -> {
+                    BackgroundTask.INSTANCE.run(project, "整理配置", (indicator) -> {
+                        ComposerUtils composerUtils = new ComposerUtils(project);
+                        composerUtils.setConfig(Map.of(
+                                "name", settings.getPkgName() + "/" + settings.getVendorName(),
+                                "description", settings.getDesc()
+                        ), false);
+                        // require
+                        ArrayList<Map<String, String>> requireData = new ArrayList<>();
+                        requireData.add(Map.of("php", ">=" + settings.getPhpVersion()));
+                        settings.getRequireDependencies().forEach(dependency -> {
+                            String myVer = dependency.getVersion();
+                            if (myVer.contains("default")) {
+                                myVer = "*";
+                            }
+                            requireData.add(Map.of(dependency.getName(), myVer));
+                        });
+                        composerUtils.setConfig("require", requireData, false);
+                        // require-dev
+                        ArrayList<Map<String, String>> requireDevData = new ArrayList<>();
+                        settings.getRequireDevDependencies().forEach(dependency -> {
+                            String myVer = dependency.getVersion();
+                            if (myVer.contains("default")) {
+                                myVer = "*";
+                            }
+                            requireDevData.add(Map.of(dependency.getName(), myVer));
+                        });
+                        composerUtils.setConfig("require-dev", requireDevData, false);
+                        // repositories
+                        ArrayList<Map<String, String>> repositoriesData = new ArrayList<>();
+                        repositoriesData.add(Map.of(
+                                "type", "composer",
+                                "url", settings.getPackagistUrl()
+                        ));
+                        ArrayList<ArrayList<Map<String, String>>> repositoriesOuterData = new ArrayList<>();
+                        repositoriesOuterData.add(repositoriesData);
+                        composerUtils.setConfigByArrayJson("repositories", repositoriesOuterData, true);
+                        return Unit.INSTANCE;
+                    },
+                    () -> {
                         new ComposerCommandInstall(project, taskTitle, "--no-interaction --prefer-dist").execute();
-                        com.jetbrains.php.composer.ComposerUtils.refreshVendorDir(composerUtils.getConfigFile());
-                    });
+                        return Unit.INSTANCE;
+                    }, null, false);
                 }
             } catch (GeneratorException e) {
                 BackgroundTask.INSTANCE.showErrorNotification(project, unzipTitle, String.format("框架脚手架安装错误:%s，解压失败:%s", e.getMessage(), zipArchiveFile.getAbsolutePath()));

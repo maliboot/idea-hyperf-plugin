@@ -23,7 +23,6 @@
     <extensions defaultExtensionNs="com.intellij">
         <notificationGroup id="HyperfNotificationGroup" displayType="BALLOON"/>
         <postStartupActivity implementation="io.maliboot.devkit.idea.hyperf.debug.HyperfStartupActivity"/>
-
         <directoryProjectGenerator implementation="io.maliboot.devkit.idea.hyperf.skeleton.php.ProjectGenerator"/>
 
         <codeInsight.declarativeInlayProvider

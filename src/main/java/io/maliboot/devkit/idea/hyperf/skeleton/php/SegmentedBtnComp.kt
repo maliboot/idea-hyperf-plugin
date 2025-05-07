@@ -18,7 +18,7 @@ class SegmentedBtnComp : JPanel() {
     private val selectedEnv: GraphProperty<String> = propertyGraph.lazyProperty { "todo" }
 
 
-    fun create(items: ArrayList<String>): SegmentedBtnComp {
+    fun create(items: ArrayList<String>, call: ((String, String) -> Unit)?): SegmentedBtnComp {
         // 过滤空或空白字符串
         val validItems = items.filter { it.isNotBlank() }
         if (validItems.isEmpty()) {
@@ -39,6 +39,7 @@ class SegmentedBtnComp : JPanel() {
 
         // 监听选中项变化
         selectedEnv.afterChange { newValue ->
+            call?.invoke(selectedItem, newValue)
             selectedItem = newValue
         }
 
