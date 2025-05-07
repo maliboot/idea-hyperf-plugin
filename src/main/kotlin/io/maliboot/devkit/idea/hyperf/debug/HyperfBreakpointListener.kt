@@ -5,6 +5,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.xdebugger.XDebuggerManager
 import com.intellij.xdebugger.breakpoints.XBreakpointListener
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
+import io.maliboot.devkit.idea.common.extend.hyperfProxyFileSuffix
 import io.maliboot.devkit.idea.hyperf.HyperfProxyFileUtil
 
 class HyperfBreakpointListener(private val project: Project) : XBreakpointListener<XLineBreakpoint<*>> {
@@ -36,7 +37,7 @@ class HyperfBreakpointListener(private val project: Project) : XBreakpointListen
             return
         }
 
-        val targetFileXPosition = if (file.contains(".proxy.php")) {
+        val targetFileXPosition = if (file.contains(hyperfProxyFileSuffix)) {
             HyperfProxyFileUtil.guessOriginXSourcePosition(breakpoint.sourcePosition!!, project) ?: return
         } else {
             HyperfProxyFileUtil.guessProxyXSourcePosition(breakpoint.sourcePosition!!, project) ?: return
